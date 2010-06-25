@@ -1,17 +1,17 @@
 /*
  * Copyright 2010 Joshua Hollander
  */
- package org.jho.codekata
+package org.jho.codekata
 
- import java.security.MessageDigest
- import org.jho.codekata.RichOpsImplicits._
+import java.security.MessageDigest
+import org.jho.codekata.RichOpsImplicits._
 
- /**
-  * Implementation of a BloomFilter
-  *
-  * @author Joshua Hollander
-  */
- class BloomFilter(val numHashes: Int, val numBits: Int) {
+/**
+ * Implementation of a BloomFilter
+ *
+ * @author Joshua Hollander
+ */
+class BloomFilter(val numHashes: Int, val numBits: Int) {
     val bits = new Array[Boolean](numBits).map(i => false)
     val hasher = new BloomHash(numHashes, numBits)
 
@@ -26,7 +26,7 @@
     }
 }
 
- object BloomFilter {
+object BloomFilter {
     /**
      * Loads a BloomFilter from a text file (like /usr/dict/words)
      */
@@ -42,7 +42,7 @@
  /**
   * Computes 'n' hash values for a given word for use in a BloomFilter
   */
- class BloomHash(val numHashes: Int, val numBits: Int) {
+class BloomHash(val numHashes: Int, val numBits: Int) {
     val md5 = MessageDigest.getInstance("MD5")
 
     def generateEach(value: String)(f: Int => Unit) {
