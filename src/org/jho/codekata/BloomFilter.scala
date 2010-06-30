@@ -16,8 +16,14 @@ class BloomFilter(val numHashes: Int, val numBits: Int) {
     val hasher = new BloomHash(numHashes, numBits)
 
     def check(word: String): Boolean = {
-        val found = true;
-        hasher.generateEach(word) { found == found && bits(_) }
+        //println("Checking: " + word)
+        var found = true;
+        hasher.generateEach(word) { b =>
+            //println("Got bit: " + b + " which is set to: " + bits(b))
+            found = found && bits(b)
+            //println("found = " + found)
+        }
+        //println("found = " + found)
         return found;
     }
 
