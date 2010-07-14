@@ -38,7 +38,7 @@ object BloomFilter {
      */
     def fromFile(fileName: String, numHashes: Int, numBits: Int) : BloomFilter = {
         val filter = new BloomFilter(numHashes, numBits)
-        scala.io.Source.fromPath(fileName).getLines().foreach { line =>
+        scala.io.Source.fromFile(fileName).getLines.foreach { line =>
             filter.addWord(line)
         }
         return filter
