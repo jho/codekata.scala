@@ -28,7 +28,7 @@ class BloomFilter(val numHashes: Int, val numBits: Int) {
     }
 
     def addWord(word: String) = {
-        hasher.generateEach(word) { bits.update(_, true)}
+        hasher.generateEach(word.trim) { bits.update(_, true)}
     }
 }
 

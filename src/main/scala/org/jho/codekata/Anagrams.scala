@@ -5,9 +5,10 @@
 package org.jho.codekata
 
 import scala.collection.mutable.HashMap
+import scala.collection.mutable.ListBuffer
 
 class Anagrams {
-    var words = new HashMap[String, List[String]]
+    var words = new HashMap[String, ListBuffer[String]]
 
     /***
      * Sort the letters in the word alphabetically and then use
@@ -15,20 +16,21 @@ class Anagrams {
      * words that are anagrams of each other.  Can be done as
      * the words are added to the set. Super simple.
      *
-     * eilnst => enlist, inlets, listen, silent
+     * Eg: eilnst => enlist, inlets, listen, silent
      *
      */
-    def addWord(word: String) {
-        var sorted = word.sortWith((c1,c2) => c1 < c2 )
-        if ( words.contains(sorted))
-            words.update(sorted, word :: words(sorted))
-        else
-            words += sorted -> List(word)
+    def addWords(toAdd: Iterator[String]) {
+        toAdd.foreach{ word =>
+            var sorted = word.toLowerCase.trim.sortWith((c1,c2) => c1 < c2 )
+            if (!words.contains(sorted))
+                words += sorted -> new ListBuffer()
+            words(sorted) += word
+        }
     }
 
     def findForWord(word: String)
     {
-        var sorted = word.sortWith((c1,c2) => c1 < c2 )
+        var sorted = word.toLowerCase.trim.sortWith((c1,c2) => c1 < c2 )
         if ( words.contains(sorted) && words(sorted).size > 1)
             println(words(sorted).mkString(" "))
         else
@@ -42,21 +44,19 @@ class Anagrams {
         }
     }
 
-    /*
-    def countForWord() : Int {
-       words.
-       return 0
+    def countAll() : Int = {
+        words.values.filter(a => a.size > 1).foldLeft(0)(_ + _.size)
     }
 
-    def countAll() : Int {
-
-    }*/
+    def countGroups() : Int = {
+        words.values.filter(a => a.size > 1).size
+    }
 }
 
 object Anagrams {
     def fromFile(fileName: String) : Anagrams ={
         var anagrams = new Anagrams
-        scala.io.Source.fromFile(fileName).getLines.foreach(word => anagrams.addWord(word))
+        anagrams.addWords(scala.io.Source.fromFile(fileName).getLines)
         return anagrams
     }
 }

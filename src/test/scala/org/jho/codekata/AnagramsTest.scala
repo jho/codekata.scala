@@ -18,14 +18,9 @@ class AnagramsTest {
     }
 
     @Test
-    def testWithShortList = {
-        var anagrams = Anagrams.fromFile("wordlist_short.txt")
-        anagrams.findAll()
-    }
-    
-    @Test
     def testWithFullList = {
         var anagrams = Anagrams.fromFile("wordlist.txt")
-        anagrams.findAll()
+        assertEquals(5683, anagrams.countAll)
+        assertEquals(2531, anagrams.countGroups)
     }
 }
