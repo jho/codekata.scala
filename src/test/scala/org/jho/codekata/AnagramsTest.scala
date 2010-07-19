@@ -9,18 +9,18 @@ import Assert._
 
 class AnagramsTest {
 
-    @Before
-    def setUp: Unit = {
-    }
+  @Before
+  def setUp: Unit = {
+  }
 
-    @After
-    def tearDown: Unit = {
-    }
+  @After
+  def tearDown: Unit = {
+  }
 
-    @Test
-    def testWithFullList = {
-        var anagrams = Anagrams.fromFile("wordlist.txt")
-        assertEquals(5683, anagrams.countAll)
-        assertEquals(2531, anagrams.countGroups)
-    }
+  @Test
+  def testWithFullList = {
+    var anagrams = Anagrams.fromFile("wordlist.txt")
+    assertEquals(5683, anagrams.countAll)
+    assertEquals(2531, anagrams.countGroups)
+  }
 }
